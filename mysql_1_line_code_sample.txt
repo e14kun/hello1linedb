@@ -1,0 +1,26 @@
+# success code
+php -r 'print_r(mysqli_fetch_array(mysqli_query(mysqli_connect("localhost","root","password","mysql"),"select user,password,host from user limit 1")));'
+php -r 'print_r(mysqli_fetch_assoc(mysqli_query(mysqli_connect("localhost","root","password","mysql"),"select user,password,host from user")));'
+
+python3 -c 'import pymysql; import pandas; cur=pymysql.connect(host="localhost",user="root", password="password",db="mysql").cursor();cur.execute("select * from user");print(pandas.DataFrame(cur.fetchall()));'
+python3 -c 'import pymysql; import pandas; cur=pymysql.connect(host="localhost",user="root", password="password",db="mysql").cursor();cur.execute("select * from user");res=cur.fetchall();exec("for row in res: print(row);");'
+python3 -c 'import pymysql; import pandas; cur=pymysql.connect(host="localhost",user="root", password="password",db="mysql").cursor();cur.execute("select * from user limit 1");res=cur.fetchone();exec("for row in res: print(row);");'
+python3 -c 'import pymysql; import pandas; cur=pymysql.connect(host="localhost",user="root", password="password",db="mysql").cursor();cur.execute("select * from user limit 1");res=cur.fetchone();exec("print(res);");'
+
+python3 -c 'import pymysql;import pandas;cur=pymysql.connect(host="localhost",user="root", password="password",db="mysql").cursor();cur.execute("select * from user");exec("while True: res=cursor.fetchmany(1);if not res: break;for row in res: yield row;");'
+
+
+
+
+(x) python3 -c 'import pymysql; import pandas; import time; cur=pymysql.connect(host="localhost",user="root", password="password",db="mysql").cursor();cur.execute("select host,user from user");exec("while res=cur.fetchall(): print(res);if 10>1: print(1234);");'
+
+(x) python3 -c 'import pymysql; import pandas; cur=pymysql.connect(host="localhost",user="root", password="password",db="mysql").cursor();cur.execute("select * from user where 1=0");exec("for (res=cur.fetchone()): print(res);");'
+
+
+
+
+
+# error code
+(x) python3 -c 'print("Hello, world")\\nfor num in range(1, 6): print(num ** 2)'
+(x) python3 -c "print('Hello, world')\\nfor num in range(1, 6): print(num ** 2)"
+(o) python3 -c "exec(\"print('Hello, world');\nfor num in range(1, 6): print(num ** 2)\");"
